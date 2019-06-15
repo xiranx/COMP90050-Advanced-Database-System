@@ -138,11 +138,17 @@ Queue management
 
 C1，C2，turn
 
+needs almost no hardware support
+
+complicated to implement if more than two transactions, busy waiting
+
 <br />
 
 ### Spinlock 自旋锁
 
 Atomic
+
+need hardware support, simple,efficient
 
 Lock two CPU cycle, one for reading, one for writing. **Reading and writing cannot be interpreted**. Use busy waiting.
 
