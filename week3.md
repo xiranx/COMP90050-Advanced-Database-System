@@ -20,10 +20,22 @@ Probability a particular module is not available:
 * N-version programming
 * Bohrbugs  -> deterministic  bugs
 * Heisenbugs -> software errors that only appear occasionally 
-* Periodic transfer of data: primary; The second
-* Checkpoint-restart
-
-
+* Dense faults -> a system can tolerate up to N faults. more than N the system may be nterrupted.
+* Byzantine faults -> the faults not part of the model and the design is not catered to tolerate such faults
+######improve software reliability
+* Periodic transfer of data: primary; The second backup.
+* Checkpoint-restart: primary records its state on a duplexed storage module. the secondary starte reading the state of the primary from the duplexed storage.
+* chekpoin message: primary send its state changes as messages to the backup.
+* persistent: backup restarts in the null state and clean up all uncommitted transactions.
+#######Highly available storage
+* write to several storage module
+* checksum
+* disk mirroring
+* shadowing
+#######High available Process
+* processpairing
+* transaction based restart
+* checkpoint restart
 
 Summary
 
