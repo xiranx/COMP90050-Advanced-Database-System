@@ -169,7 +169,7 @@ have loop(s)
 **Solution**
 
 * Have enough resources
-* Do not let a process simply rollback. -> makes live looks worse than deadlocks. -> everything seems working.
+* Do not let a process to wait simply rollback. -> makes live looks worse than deadlocks. -> everything seems working.
 * Resource level: Linearly order the resources and request of resources should follow order. J > I 
 * Pre-declare all resources in a single request -> only request once;
 * wait and rollback
