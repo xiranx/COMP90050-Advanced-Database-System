@@ -22,7 +22,7 @@ Read and write sets can be defined by predicates (e.g. Where clauses in SQL stat
 
 
 
-**problems**
+**problems**？？？？？？？？？？
 
 
 
@@ -31,6 +31,7 @@ Read and write sets can be defined by predicates (e.g. Where clauses in SQL stat
 * Pick a fixed set of predicates.
 * They form a lattice or a tree.
 * Lock the nodes in this graph/lattice/tree 
+* size of lock is called granule.
 
 <br />
 
@@ -56,6 +57,8 @@ SIX: take shared lock at moment, has intention to take excusive lock
 
 ![](pic/week7_3.png)
 
+？？？？？？t12 why T6:G
+
 <br />
 
 ### Convoy
@@ -66,7 +69,7 @@ FIFO can cause the problem of long queues.
 
 High priority transaction will wait pervious low priority transaction. 
 
-(Do not use FIFO)
+(Do not use FIFO, spin on a lock rather than wait, do not pre-empt processing)
 
 
 
