@@ -60,9 +60,10 @@ If one source is locked by exclusive lock, other transaction cannot add any lock
 
 **Two phase transactions**: A transaction is two phased if all LOCK operations precede all its UNLOCK operations. (if you lock then unlock, you cannot lock again)
 
-**wormhole**: a history is isolated if and only if it has no wormholes.
+**wormhole**: a history is isolated if and only if it has no wormholes. There is a cycle in the dependency graph.
 
 **Rollback theorem**: an update transaction that does an UNLOCK and then does a ROLLBACK is not two phases.
+**Locking Theorem**: if all transactions are well formed and two-phased, then any legal history will be isolated.
 
 <br />
 
@@ -78,7 +79,7 @@ The more locks you take, the poorer performance you have.  The degree of isolati
 * Lock protocol is **two phase** and **well formed**.
 * Two phase lock -> lock anything which you want to access, then do read and write.
 * It is sensitive to the following conflicts:
-  * write->write; write ->read; read->write
+  * write->write; write ->read; read->write限制的死死的Serialization
 
 <br />
 
@@ -89,17 +90,17 @@ The more locks you take, the poorer performance you have.  The degree of isolati
 * SLOCKs release immediately. XLOCKs no need to wait for a long time.
 * Might Non repeatable reads
 * It is sensitive to the following conflicts:
-  * write->write; write ->read
+  * write->write; write ->read(解决了lost update和dirty read)读操作是slock加锁读完后迅速释放，因此可能读到不一样的值，但是读不到过程中修改的数因此可能有repeatable reads
 
 <br />
 
 #### Degree1:
 
 * No SLOCK for reading. Reading no need for waiting.
-* No two phase, no well formed, no lock for reading
-* Two phase for excusive lock
+* No two phase (two phase for exclusive locks), no well formed (well formed with respect to writes), no lock for reading
+* Two phase for exclusive lock
 * It is sensitive the following conflicts:
-  * write->write;
+  * write->write;(解决了lost update),但是数据可以在修改的过程中随时被其他事物读（有dirty read）,同理也有repeatable read
 
 <br />
 
@@ -107,7 +108,7 @@ The more locks you take, the poorer performance you have.  The degree of isolati
 
 * No two phase, no well formed, no lock for reading
 * Write is well-formed, not two phase
-* When writes, lock then and immediately release. High response.
+* When writes, lock then and immediately release. High response.(写过的数据可能在提交之前被修改，所以有lost update)
 * Ignores all conflicts.
 
 <br />
